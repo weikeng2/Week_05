@@ -32,12 +32,14 @@ class App extends Component {
   };
   
   handleReplace = event => {
+    event.preventDefault();
     var newTodoList = [...this.state.todos]; 
     var index = newTodoList.indexOf(event.target.value);
-    newTodoList.splice(index, 1, this.state.replaceValue);
+    newTodoList.splice(index, 1);
     this.setState({
+      newTodoList: newTodoList.splice(index, 0, this.state.newTodo),
       todos: newTodoList,
-      replaceValue: ""
+      newTodo: ""
     });
   }
 
@@ -57,7 +59,7 @@ class App extends Component {
               <button  value={todo} onClick={this.handleDelete}>X</button>
               <input
                 type = "text"
-                value = {this.state.replaceValue}
+                value = {this.state.newTodo}
                 onChange = {this.handleChange}
               />
               <button onClick = {this.handleReplace}>y e e t</button>
