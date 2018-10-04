@@ -1,5 +1,6 @@
 import React, { Component } from "react";
- class App extends Component {
+ 
+class App extends Component {
   state = {
     newTodo: "",
     todos: [
@@ -11,7 +12,6 @@ import React, { Component } from "react";
       "Add tea"
     ]
   };
-
   handleDelete = event => {
     var newTodoList = [...this.state.todos]; 
     var index = newTodoList.indexOf(event.target.value);
@@ -19,45 +19,54 @@ import React, { Component } from "react";
     this.setState({todos: newTodoList});
   };
 
-   handleChange = event => {
+  handleChange = event => {
     this.setState({ newTodo: event.target.value });
   };
-  
-   handleSubmit = event => {
+
+  handleSubmit = event => {
     event.preventDefault();
     this.setState({
       todos: [...this.state.todos, this.state.newTodo],
       newTodo: ""
     });
   };
-
+  
   handleReplace = event => {
     var newTodoList = [...this.state.todos]; 
     var index = newTodoList.indexOf(event.target.value);
-    newTodoList.splice(index, 1, newTodo);
-    this.setState({todos: [...newTodoList, this.state.newTodo],
-    newTodo: ""
+    newTodoList.splice(index, 1, this.state.replaceValue);
+    this.setState({
+      todos: newTodoList,
+      replaceValue: ""
     });
-  };
+  }
 
-   render() {
+
+
+  render() {
     return (
       <div>
+
         <h1> How to make boba at home</h1>
+
         {this.state.todos.map(todo => (
+         
           <div>
             <li key={todo}>
               {todo + " "}
-              <button  value={todo} onClick={this.handleReplace}>yeet</button>
+              <button  value={todo} onClick={this.handleDelete}>X</button>
               <input
-              type="text"
-              value={this.state.newTodo}
-              onChange={this.handleChange}
-            />
+                type = "text"
+                value = {this.state.replaceValue}
+                onChange = {this.handleChange}
+              />
+              <button onClick = {this.handleReplace}>y e e t</button>
+
             </li>
           </div>
         ))}
-         <form onSubmit={this.handleSubmit}>
+
+        <form onSubmit={this.handleSubmit}>
           <input
             type="text"
             value={this.state.newTodo}
@@ -69,4 +78,5 @@ import React, { Component } from "react";
     );
   }
 }
- export default App;
+
+export default App;
